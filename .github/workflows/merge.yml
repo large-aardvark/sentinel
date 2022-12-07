@@ -18,7 +18,7 @@ jobs:
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_DEV }}
+          heroku_app_name: gentle-basin-96142
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
       - name: Deploy to Prod
@@ -26,5 +26,5 @@ jobs:
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_app_name: gentle-gorge-10023
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
