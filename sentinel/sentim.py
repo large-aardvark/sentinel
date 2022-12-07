@@ -8,6 +8,7 @@ def send_request(text: str) -> str:
         timeout=3,
     )
 
+
     if response.status_code != 200:
         return "negative"
 
