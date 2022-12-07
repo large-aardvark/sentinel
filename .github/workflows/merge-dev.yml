@@ -1,0 +1,22 @@
+name: Deploy Dev
+
+on:
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**/README.md'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy to Dev
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: gentle-basin-96142
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
