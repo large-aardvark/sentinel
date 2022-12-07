@@ -1,8 +1,9 @@
-name: Deploy
+name: Deploy Prod
 
 on:
   push:
-    branches: [ dev, main ]
+    branches:
+      - main
     paths-ignore:
       - '**/README.md'
 
@@ -13,16 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Deploy to Dev
-        if: github.ref == 'refs/heads/dev'
-        uses: AkhileshNS/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: gentle-basin-96142
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-
       - name: Deploy to Prod
-        if: github.ref == 'refs/heads/main'
         uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
