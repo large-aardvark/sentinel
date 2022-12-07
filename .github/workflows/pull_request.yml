@@ -1,0 +1,46 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ dev, main ]
+    paths-ignore:
+      - '**/README.md'
+
+env:
+  PYTHON_VERSION: 3.10.9 # Supported by heroku
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup Python Version ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+
+      - run: poetry install
+
+      - name: Run Unit Tests
+        run: |
+          poetry run coverage run -m pytest tests/test_unit.py
+          poetry run coverage report --fail-under 90
+
+      - name: Start Sentinel API
+        run: |
+          poetry run uvicorn sentinel.api:app --host 0.0.0.0 --port 8000 &
+
+      # Upstream application appears down, turning off tests
+      # - name: Run Regression Tests
+      #   run: |
+      #     BASE_URL=http://localhost:8000 poetry run pytest tests/test_regression.py
+      # - name: Run Integration Tests
+      #   run: |
+      #     poetry run pytest tests/test_integration.py
+    
