@@ -7,11 +7,11 @@ on:
       - '**/README.md'
 
 env:
-  PYTHON_VERSION: 3.10.2
+  PYTHON_VERSION: 3.10.9 # Supported by heroku
 
 jobs:
   build-test:
-    runs-on: ubuntu-20.04 # python 3.10.2 only available on 20.04 for setup-python
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
