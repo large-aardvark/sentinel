@@ -44,3 +44,14 @@ BASE_URL=http://localhost:8000 poetry run pytest tests/test_regression.py
 ```sh
 poetry run pytest tests/test_integration.py
 ```
+
+## Deployment pipeline
+
+ - There are currently two branches that correspond to two environments
+    - dev (development)
+    - main (production)
+ - The anticipated workflow is:
+    - Development is done on a branch from the dev branch
+    - A PR is raised, which is then merged into dev, and the code is deployed to the development environment
+    - When deveopers are happy that dev is stable, a PR is raised to merge dev -> main
+    - That is then merged, and the resulting code is deployed to production
